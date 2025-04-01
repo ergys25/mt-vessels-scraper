@@ -1,0 +1,23 @@
+
+services:
+  app:
+    build: .
+    container_name: mt-vessels-scraper
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - DB_USER=${DB_USER}
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
+      - MT_USERNAME=${MT_USERNAME}
+      - MT_PASSWORD=${MT_PASSWORD}
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('pg').Pool().query('SELECT 1')"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 5s
