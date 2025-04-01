@@ -13,8 +13,6 @@ services:
       - DB_PORT=${DB_PORT}
       - MT_USERNAME=${MT_USERNAME}
       - MT_PASSWORD=${MT_PASSWORD}
-    env_file:
-      - .env
     healthcheck:
       test: ["CMD", "node", "-e", "require('pg').Pool().query('SELECT 1')"]
       interval: 30s
